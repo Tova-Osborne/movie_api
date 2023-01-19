@@ -1,6 +1,6 @@
-const http = require("http"),
-  fs = require("fs"),
-  url = require("url");
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
 
 http
   .createServer((request, response) => {
@@ -11,11 +11,11 @@ http
     fs.appendFile(
       "log.txt",
       "URL: " + addr + "\nTimestamp: " + new Date() + "\n\n",
-      (err) => {
-        if (err) {
-          console.log(err);
+      (error) => {
+        if (error) {
+          console.log(error);
         } else {
-          console.log("Added to log.");
+          console.log("Request added to log.");
         }
       }
     );
@@ -23,12 +23,12 @@ http
     if (q.pathname.includes("documentation")) {
       filePath = __dirname + "/documentation.html";
     } else {
-      filePath = "index.html";
+      filePath = "/index.html";
     }
 
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        throw err;
+    fs.readFile(filePath, (error, data) => {
+      if (error) {
+        throw error;
       }
 
       response.writeHead(200, { "Content-Type": "text/html" });
@@ -37,4 +37,4 @@ http
     });
   })
   .listen(8080);
-console.log("My test server is running on Port 8080.");
+console.log("My test server is running on port 8080.");
