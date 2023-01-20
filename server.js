@@ -17,24 +17,23 @@ http
         } else {
           console.log("Request added to log.");
         }
-      }
-    );
+      });
 
     if (q.pathname.includes("documentation")) {
       filePath = __dirname + "/documentation.html";
     } else {
-      filePath = "/index.html";
+      filePath = __dirname + "/index.html";
     }
 
-    fs.readFile(filePath, (error, data) => {
-      if (error) {
-        throw error;
-      }
-
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        throw err;
+      } else {
       response.writeHead(200, { "Content-Type": "text/html" });
       response.write(data);
       response.end();
-    });
+    }
+  });
   })
-  .listen(8080);
-console.log("My test server is running on port 8080.");
+  .listen(3002);
+console.log("My test server is running on port 3002.");
