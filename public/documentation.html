@@ -4,14 +4,301 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MovieSearch API</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
   </head>
 
   <body>
-    <h1>MovieSearch API</h1>
-    <p>
+    <h1 class="mx-3">MovieSearch API</h1>
+    <p class="mx-3">
       Movie search REST API is built with node.js and express. The API returns
       key data in a JSON file pertaining to movies including movie description,
       genre, director, images (via URL).
     </p>
+
+    <table class="table table-striped mx-3">
+      <tr class="table-dark">
+        <th scope="col">Description</th>
+        <th scope="col">Endpoint URL</th>
+        <th scope="col">Endpoint</th>
+        <th scope="col">Request Method</th>
+        <th scope="col">Query Parameters</th>
+        <th scope="col">Request/Response Data Format</th>
+        <th scope="col">Request/Response Example</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td scope="row">Returns a list of ALL movies</td>
+          <td>https://[soontobenamedapp].com/movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>Response: 200</td>
+          <td>
+           
+            <code>
+              JSON <br />
+              {<br />
+              "title": "string",<br />
+              "year": "int",<br />
+              "genre": {<br />
+              "name": "string"<br />
+              },<br />
+              "director": {<br />
+              "name": "string"<br />
+              },<br />
+              },
+              <td>
+                <code>
+                  {<br />
+                  title: "The Shawshank Redemption",<br />
+                  year: "1994",<br />
+                  genre: {<br />
+                  name: "drama",<br />
+                  },<br />
+                  director: {<br />
+                  name: "Frank Darabont",<br />
+                  },<br />
+                  },<br />
+                </code>
+              </td>
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Returns data (description, genre, director, image URL, whether it’s
+            featured or not) about a single movie by title
+          </td>
+          <td>https://[soontobenamedapp].com/movies/{movie_title}</td>
+          <td>/movies/:title</td>
+          <td>GET</td>
+          <td>Response: 200</td>
+          <td>
+            
+            <code>
+              JSON <br />
+              {<br />
+              "title": "string",<br />
+              "year": "int",<br />
+              "genre": {<br />
+              "name": "string"<br />
+              },<br />
+              "director": {<br />
+              "name": "string"<br />
+              }<br />
+              }<br />
+            </code>
+          </td>
+          <td>
+            <code>
+              {<br />
+              "title": "Godfather",<br />
+              "year": 1972,<br />
+              "genre": {<br />
+              "name": "drama"<br />
+              },<br />
+              "director": {<br />
+              "name": "Francis Ford Coppola"<br />
+              }<br />
+              }<br />
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Returns data about a genre (description) by name/title (e.g.,
+            “Thriller”)
+          </td>
+          <td>https://[soontobenamedapp].com/movies/genre/{genre_name}</td>
+          <td>/movies/genre/:genreName</td>
+          <td>GET</td>
+          <td>Response: 200</td>
+          <td>
+            <code>
+              JSON <br />
+              {<br />
+              "name": "string"<br />
+              }<br />
+            </code>
+          </td>
+          <td>
+            <code>
+              {<br />
+              "name": "drama"<br />
+              }<br />
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Returns data about a director (bio, birth year, death year) by name
+          </td>
+          <td>
+            https://[soontobenamedapp].com/movies/directors/{director_name}
+          </td>
+          <td>/movies/directors/:directorName</td>
+          <td>GET</td>
+          <td>Response: 200</td>
+          <td>
+            <code>
+              JSON <br />
+              {<br />
+              "name": "string"<br />
+              }<br />
+            </code>
+          </td>
+          <td>
+            <code>
+              {<br />
+              "name": "Frank Darabont"<br />
+              }<br />
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Allows new users to register</td>
+          <td>https://[soontobenamedapp].com/users</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            Body Parameters <br />
+            <code>
+              JSON <br />
+              {<br />
+              "name": "string"<br />
+              }<br />
+            </code>
+          </td>
+          <td>
+            <code>
+            { <br />
+            "name": "string",<br />
+            "id": {<br />
+            "v5": {<br />
+            "type": "string",<br />
+            "pattern":
+            "string"<br />
+            }<br />
+            }<br />
+            }<br />
+            }
+            </code>
+          </td>
+          <td>
+            <code>
+              { <br />
+              "name": "John Doe",<br />
+              "id": {<br />
+              "v5": {<br />
+              "type": "string",<br />
+              "pattern":
+              "(?:^[a-f0-9]{8}-[a-f0-9]{4}-5[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$)|(?:^0{8}-0{4}-0{4}-0{4}-0{12}$)"<br />
+              }<br />
+              }<br />
+              }<br />
+              }
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Allows users to update their user info (username)</td>
+          <td>https://[soontobenamedapp].com/users/{id}</td>
+          <td>/users/:id</td>
+          <td>PUT</td>
+          <td>Body Parameters: <br>
+          <code>
+            {<br>
+              "name": "string"<br>
+            }<br>
+          </code></td>
+          <td>
+            <code>
+            {<br>
+              "id": "string",<br>
+              "name": "string",<br>
+              "favorites": []<br>
+          }<br>
+          </code>
+          </td>
+          <td>
+            <code>{<br>
+            "id": 1,<br>
+            "name": "Stephanie Smith",<br>
+            "favorites": []<br>
+        }<br>
+      </code>
+      </td>
+        </tr>
+        <tr>
+          <td scope="row">Allows existing users to deregister</td>
+          <td>https://[soontobenamedapp].com/users/{id}</td>
+          <td>/users/:id</td>
+          <td>DELETE</td>
+          <td>Response: 200</td>
+          <td>
+            <code>
+              "user {id} has been deleted."
+            </code>
+          </td>
+          <td>
+            <code>
+              "user 1 has been deleted."
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Allows users to add a movie to their list of favorites
+          </td>
+          <td>https://[soontobenamedapp].com/users/{id}/{movie_title}</td>
+          <td>/users/:id/:movieTitle</td>
+          <td>POST</td>
+          <td>Response: 200</td>
+          <td>
+            <code>
+              "{movie_title} has been added to the user {id}'s favorites list"
+            </code>
+          </td>
+          <td>
+            <code>
+              Godfather has been added to the user 3's favorite list
+            </code>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Allows users to remove a movie from their list of favorites
+          </td>
+          <td>https://[soontobenamedapp].com/users/{id}/{movie_title}</td>
+          <td>/users/:id/:movieTitle</td>
+          <td>DELETE</td>
+          <td>Response: 200</td>
+          <td>
+            <code>
+              "{movie_title} has been removed from the user {id}'s favorites list"
+            </code>
+          </td>
+          <td>
+            <code>
+              Godfather has been removed from the user 3's favorite list
+            </code>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
