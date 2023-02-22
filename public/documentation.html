@@ -1,304 +1,379 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MovieSearch API</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
-  </head>
 
-  <body>
-    <h1 class="mx-3">MovieSearch API</h1>
-    <p class="mx-3">
-      Movie search REST API is built with node.js and express. The API returns
-      key data in a JSON file pertaining to movies including movie description,
-      genre, director, images (via URL).
-    </p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MovieSearch API</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+</head>
 
-    <table class="table table-striped mx-3">
-      <tr class="table-dark">
-        <th scope="col">Description</th>
-        <th scope="col">Endpoint URL</th>
-        <th scope="col">Endpoint</th>
-        <th scope="col">Request Method</th>
-        <th scope="col">Query Parameters</th>
-        <th scope="col">Request/Response Data Format</th>
-        <th scope="col">Request/Response Example</th>
-      </tr>
-      <tbody>
-        <tr>
-          <td scope="row">Returns a list of ALL movies</td>
-          <td>https://[soontobenamedapp].com/movies</td>
-          <td>/movies</td>
-          <td>GET</td>
-          <td>Response: 200</td>
-          <td>
-           
-            <code>
+<body>
+  <h1 class="mx-3">MovieSearch API</h1>
+  <p class="mx-3">
+    Movie search REST API is built with node.js and express. The API returns
+    key data in a JSON file pertaining to movies including movie description,
+    genre, director, images (via URL).
+  </p>
+
+  <table class="table table-striped mx-3">
+    <tr class="table-dark">
+      <th scope="col">Description</th>
+      <th scope="col">Endpoint URL</th>
+      <th scope="col">Endpoint</th>
+      <th scope="col">Request Method</th>
+      <th scope="col">Query Parameters</th>
+      <th scope="col">Request/Response Data Format</th>
+      <th scope="col">Request/Response Example</th>
+    </tr>
+    <tbody>
+      <tr>
+        <td scope="row">Returns a list of ALL movies</td>
+        <td>https://[soontobenamedapp].com/movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>Response: 200</td>
+        <td>
+
+          <code>
               JSON <br />
               {<br />
               "title": "string",<br />
-              "year": "int",<br />
+              "description": "string",<br />
               "genre": {<br />
               "name": "string"<br />
+              "description: "string"<br>
               },<br />
               "director": {<br />
               "name": "string"<br />
+              "bio": "string"<br>
+              "birth": "string"<br>
               },<br />
+              "actors": "[string]"
+              "imagePath": "String",<br>
+              "featured": Boolean,
               },
               <td>
                 <code>
-                  {<br />
-                  title: "The Shawshank Redemption",<br />
-                  year: "1994",<br />
-                  genre: {<br />
-                  name: "drama",<br />
-                  },<br />
-                  director: {<br />
-                  name: "Frank Darabont",<br />
-                  },<br />
-                  },<br />
+                  {<br>
+                    "Genre": {<br>
+                        "Name": "Drama",<br>
+                        "Description": "The drama genre is defined by conflict and often looks to reality rather than sensationalism. Emotions and intense situations are the focus, but where other genres might use unique or exciting moments to create a feeling, movies in the drama genre focus on common occurrences."<br>
+                    },<br>
+                    "Director": {<br>
+                        "Name": "Frank Darabont",<br>
+                        "Bio": "Frank Darabont is an American film director, screenwriter and producer. He has been nominated for three Academy Awards and a Golden Globe.",<br>
+                        "Birth": "1959"<br>
+                    },<br>
+                    "Actors": [],<br>
+                    "_id": "63f274e0d0dbd371fe7db75d",<br>
+                    "Title": "The Shawshank Redemption",<br>
+                    "Description": "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",<br>
+                    "Featured": false<br>
+                }
                 </code>
-              </td>
-            </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">
-            Returns data (description, genre, director, image URL, whether it’s
-            featured or not) about a single movie by title
-          </td>
-          <td>https://[soontobenamedapp].com/movies/{movie_title}</td>
-          <td>/movies/:title</td>
-          <td>GET</td>
-          <td>Response: 200</td>
-          <td>
-            
-            <code>
+        </td>
+        </code>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">
+          Returns data (description, genre, director, image URL, whether it’s
+          featured or not) about a single movie by title
+        </td>
+        <td>https://[soontobenamedapp].com/movies/{movie_title}</td>
+        <td>/movies/:Title</td>
+        <td>GET</td>
+        <td>Response: 200</td>
+        <td>
+
+          <code>
+              <code>
+                JSON <br />
+                {<br />
+                "title": "string",<br />
+                "description": "string",<br />
+                "genre": {<br />
+                "name": "string"<br />
+                "description: "string"<br>
+                },<br />
+                "director": {<br />
+                "name": "string"<br />
+                "bio": "string"<br>
+                "birth": "string"<br>
+                },<br />
+                "actors": "[string]"
+                "imagePath": "String",<br>
+                "featured": Boolean,
+                },
+                <td>
+                  <code>
+                    {<br>
+                      "Genre": {<br>
+                          "Name": "Drama",<br>
+                          "Description": "The drama genre is defined by conflict and often looks to reality rather than sensationalism. Emotions and intense situations are the focus, but where other genres might use unique or exciting moments to create a feeling, movies in the drama genre focus on common occurrences."<br>
+                      },<br>
+                      "Director": {<br>
+                          "Name": "Frank Darabont",<br>
+                          "Bio": "Frank Darabont is an American film director, screenwriter and producer. He has been nominated for three Academy Awards and a Golden Globe.",<br>
+                          "Birth": "1959"<br>
+                      },<br>
+                      "Actors": [],<br>
+                      "_id": "63f274e0d0dbd371fe7db75d",<br>
+                      "Title": "The Shawshank Redemption",<br>
+                      "Description": "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",<br>
+                      "Featured": false<br>
+                  }
+                  </code>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">
+          Returns data about a genre (i.e., genre description) by genre title (e.g.,
+          “Thriller”)
+        </td>
+        <td>https://[soontobenamedapp].com/movies/genre/{genre_name}</td>
+        <td>/movies/genre/:genreName</td>
+        <td>GET</td>
+        <td>Response: 200</td>
+        <td>
+          <code>
               JSON <br />
               {<br />
-              "title": "string",<br />
-              "year": "int",<br />
-              "genre": {<br />
-              "name": "string"<br />
-              },<br />
-              "director": {<br />
-              "name": "string"<br />
+              Genre: {
+              "name": "string",<br />
+              "description": "string"<br />
               }<br />
-              }<br />
+              "__id": "string"
             </code>
-          </td>
-          <td>
-            <code>
-              {<br />
-              "title": "Godfather",<br />
-              "year": 1972,<br />
-              "genre": {<br />
-              "name": "drama"<br />
-              },<br />
-              "director": {<br />
-              "name": "Francis Ford Coppola"<br />
-              }<br />
-              }<br />
+        </td>
+        <td>
+          <code>
+              { <br>
+                "Genre": {<br>
+                    "Name": "Action",<br>
+                    "Description": "Movies in the action genre are defined by risk and stakes. While many movies may feature an action sequence, to be appropriately categorized inside the action genre, the bulk of the content must be action-oriented, including fight scenes, stunts, car chases, and general danger."<br>
+                },<br>
+                "__id": "63f26e10d0dbd371fe7db757",
+         <br>
             </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">
-            Returns data about a genre (description) by name/title (e.g.,
-            “Thriller”)
-          </td>
-          <td>https://[soontobenamedapp].com/movies/genre/{genre_name}</td>
-          <td>/movies/genre/:genreName</td>
-          <td>GET</td>
-          <td>Response: 200</td>
-          <td>
-            <code>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">
+          Returns data about a director (bio, birth year, death year) by name
+        </td>
+        <td>
+          https://[soontobenamedapp].com/movies/directors/{director_name}
+        </td>
+        <td>/movies/directors/:directorName</td>
+        <td>GET</td>
+        <td>Response: 200</td>
+        <td>
+          <code>
               JSON <br />
               {<br />
-              "name": "string"<br />
+                "Director": {<br />
+                  "Name": "string"<br />
+                  "Bio": "string"<br />
+                  "Birth": "string"<br />
+                  "Death": "string"<br />
               }<br />
+                "__id": "string",<br />
             </code>
-          </td>
-          <td>
-            <code>
+        </td>
+        <td>
+          <code>
               {<br />
-              "name": "drama"<br />
+                "Director": {<br />
+                  "Name": "Francis Ford Coppola",{<br />
+                  "Bio": "Francis Ford Coppola, (born April 7, 1939, Detroit, Michigan, U.S.), American motion-picture director, writer, and producer whose films range from sweeping epics to small-scale character studies. As the director of films such as The Godfather (1972), The Conversation (1974), and Apocalypse Now (1979), he enjoyed his greatest success and influence in the 1970s, when he attempted to create an alternative to the Hollywood system of film production and distribution.",{<br />
+                  "Birth": "1939"{<br />
+                "__id": "63f26e10d0dbd371fe7db757",<br />
               }<br />
             </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">
-            Returns data about a director (bio, birth year, death year) by name
-          </td>
-          <td>
-            https://[soontobenamedapp].com/movies/directors/{director_name}
-          </td>
-          <td>/movies/directors/:directorName</td>
-          <td>GET</td>
-          <td>Response: 200</td>
-          <td>
-            <code>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">Allows new users to register</td>
+        <td>https://[soontobenamedapp].com/users</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>
+          Body Parameters <br />
+          <code>
               JSON <br />
-              {<br />
-              "name": "string"<br />
-              }<br />
+              {<br>
+                "UserName" : "string",<br>
+                "Password" : "string",<br>
+                "Email" : "string",<br>
+                "Birthday" : Date<br>
+            }<br>
             </code>
-          </td>
-          <td>
-            <code>
-              {<br />
-              "name": "Frank Darabont"<br />
-              }<br />
-            </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">Allows new users to register</td>
-          <td>https://[soontobenamedapp].com/users</td>
-          <td>/users</td>
-          <td>POST</td>
-          <td>
-            Body Parameters <br />
-            <code>
-              JSON <br />
-              {<br />
-              "name": "string"<br />
-              }<br />
-            </code>
-          </td>
-          <td>
-            <code>
-            { <br />
-            "name": "string",<br />
-            "id": {<br />
-            "v5": {<br />
-            "type": "string",<br />
-            "pattern":
-            "string"<br />
-            }<br />
-            }<br />
-            }<br />
-            }
-            </code>
-          </td>
-          <td>
-            <code>
-              { <br />
-              "name": "John Doe",<br />
-              "id": {<br />
-              "v5": {<br />
-              "type": "string",<br />
-              "pattern":
-              "(?:^[a-f0-9]{8}-[a-f0-9]{4}-5[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$)|(?:^0{8}-0{4}-0{4}-0{4}-0{12}$)"<br />
-              }<br />
-              }<br />
-              }<br />
-              }
-            </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">Allows users to update their user info (username)</td>
-          <td>https://[soontobenamedapp].com/users/{id}</td>
-          <td>/users/:id</td>
-          <td>PUT</td>
-          <td>Body Parameters: <br>
+        </td>
+        <td>
           <code>
             {<br>
-              "name": "string"<br>
-            }<br>
-          </code></td>
-          <td>
-            <code>
-            {<br>
-              "id": "string",<br>
-              "name": "string",<br>
-              "favorites": []<br>
+              "UserName" : "string",<br>
+              "Password" : "string",<br>
+              "Email" : "string",<br>
+              "Birthday" : Date<br>
+              "Favorites" : ["string"]<br>
           }<br>
           </code>
-          </td>
-          <td>
-            <code>{<br>
-            "id": 1,<br>
-            "name": "Stephanie Smith",<br>
-            "favorites": []<br>
+            </code>
+        </td>
+        <td>
+          <code>
+            {<br>
+              "_id": "63f3ff07ebce783d7c6452a9",<br>
+              "Username": "Testperson1",<br>
+              "Password": "test",<br>
+              "Email": "testperson1@gmail.com",<br>
+              "Favorites": [],<br>
+              "__v": 0<br>
+          }
+            </code>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">Allows users to update their user info (username)</td>
+        <td>https://[soontobenamedapp].com/users/{username}</td>
+        <td>/users/:Username</td>
+        <td>PUT</td>
+        <td>Body Parameters: <br>
+          <code>
+            {<br>
+              "UserName" : "string",<br>
+              "Password" : "string",<br>
+              "Email" : "string",<br>
+              "Birthday" : Date<br>
+          }<br>
+          </code>
+        </td>
+        <td>
+          <code>
+            {<br>
+              "UserName" : "string",<br>
+              "Password" : "string",<br>
+              "Email" : "string",<br>
+              "Birthday" : Date<br>
+          }<br>
+          </code>
+        </td>
+        <td>
+          <code>{<br>
+            "_id": "63f3ff07ebce783d7c6452a9",<br>
+            "Username": "TestPPPPPerson1",<br>
+            "Password": "test",<br>
+            "Email": "testperson1@gamil.com",<br>
+            "Favorites": [<br>
+                "63f26ec4d0dbd371fe7db758"<br>
+            ],<br>
+            "__v": 0<br>
         }<br>
       </code>
-      </td>
-        </tr>
-        <tr>
-          <td scope="row">Allows existing users to deregister</td>
-          <td>https://[soontobenamedapp].com/users/{id}</td>
-          <td>/users/:id</td>
-          <td>DELETE</td>
-          <td>Response: 200</td>
-          <td>
-            <code>
-              "user {id} has been deleted."
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">Allows existing users to deregister</td>
+        <td>https://[soontobenamedapp].com/users/{Username}</td>
+        <td>/users/:Username</td>
+        <td>DELETE</td>
+        <td>Response: 200</td>
+        <td>
+          <code>
+              "{Username} has been deleted."
             </code>
-          </td>
-          <td>
-            <code>
-              "user 1 has been deleted."
+        </td>
+        <td>
+          <code>
+              "StewartJames was deleted."
             </code>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">
-            Allows users to add a movie to their list of favorites
-          </td>
-          <td>https://[soontobenamedapp].com/users/{id}/{movie_title}</td>
-          <td>/users/:id/:movieTitle</td>
-          <td>POST</td>
-          <td>Response: 200</td>
-          <td>
-            <code>
-              "{movie_title} has been added to the user {id}'s favorites list"
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">
+          Allows users to add a movie to their list of favorites
+        </td>
+        <td>https://[soontobenamedapp].com/users/{Username}/{movie_title}</td>
+        <td>/users/:Username/:movieTitle</td>
+        <td>PUT</td>
+        <td>Response: 200</td>
+        <td>
+          <code>
+            {<br>
+              "_id": "string",<br>
+              "Username": "string",<br>
+              "Password": "string",<br>
+              "Email": "string",<br>
+              "Favorites": [<br>
+                  "string"<br>
+              ],<br>
+              "__v": 0<br>
+          }<br>
             </code>
-          </td>
-          <td>
-            <code>
-              Godfather has been added to the user 3's favorite list
+        </td>
+        <td>
+          <code>
+            {<br>
+              "_id": "63f3ff07ebce783d7c6452a9",<br>
+              "Username": "TestPerson1",<br>
+              "Password": "test",<br>
+              "Email": "testperson1@gamil.com",<br>
+              "Favorites": [<br>
+                  "63f26ec4d0dbd371fe7db758"<br>
+              ],<br>
+              "__v": 0<br>
+          }
             </code>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td scope="row">
-            Allows users to remove a movie from their list of favorites
-          </td>
-          <td>https://[soontobenamedapp].com/users/{id}/{movie_title}</td>
-          <td>/users/:id/:movieTitle</td>
-          <td>DELETE</td>
-          <td>Response: 200</td>
-          <td>
-            <code>
-              "{movie_title} has been removed from the user {id}'s favorites list"
+        </td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td scope="row">
+          Allows users to remove a movie from their list of favorites
+        </td>
+        <td>https://[soontobenamedapp].com/users/{Username}/{movie_ID}</td>
+        <td>/users/:Username/:movieTitle</td>
+        <td>DELETE</td>
+        <td>Response: 201</td>
+        <td>
+          <code>
+            {<br>
+              "_id": "string",<br>
+              "Username": "string",<br>
+              "Password": "string",<br>
+              "Email": "string",<br>
+              "Favorites": [<br>
+              "string"
+              ],<br>
+          }
             </code>
-          </td>
-          <td>
-            <code>
-              Godfather has been removed from the user 3's favorite list
+        </td>
+        <td>
+          <code>
+            {<br>
+              "_id": "63f3ff07ebce783d7c6452a9",<br>
+              "Username": "TestPerson1",<br>
+              "Password": "test",<br>
+              "Email": "testperson1@gamil.com",<br>
+              "Favorites": [<br>
+              ],<br>
+          }
             </code>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+        </td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
