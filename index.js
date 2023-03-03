@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const { query } = require("express");
+const { check, validationResult } = require("express-validator");
 
 const app = express();
 const Movies = Models.Movie;
@@ -20,6 +21,23 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
 
 app.use(bodyParser.json());
 app.use(morgan("combined", { stream: accessLogStream }));
+
+const cors = require("cors");
+let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        let message =
+          "The CORS policy for this application doesn't allow access from origin" +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 let auth = require("./auth")(app);
 const passport = require("passport");
@@ -138,32 +156,49 @@ app.get(
 //POST requests
 
 //Add new user
-app.post("/users", (req, res) => {
-  Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + " already exists.");
-      } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email
-        })
-          .then((user) => {
-            console.log(user);
-            res.status(201).json(user);
+app.post(
+  "/users",
+  [
+    check("Username", "Username is required").isLength({ min: 8 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
+  (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + " already exists.");
+        } else {
+          Users.create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
           })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+            .then((user) => {
+              console.log(user);
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 //PUT requests
 
@@ -266,6 +301,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
 });
 
-app.listen(8080, () => {
-  console.log("App listening on port 8080.");
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });
