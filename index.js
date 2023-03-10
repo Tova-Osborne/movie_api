@@ -11,6 +11,7 @@ const { check, validationResult } = require("express-validator");
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
+
 mongoose.connect(
   process.env.CONNECTION_URI,
   {
@@ -30,7 +31,7 @@ app.use(bodyParser.json());
 app.use(morgan("combined", { stream: accessLogStream }));
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+let allowedOrigins = ["http://localhost:8080", "https://tovamovielistapp.herokuapp.com/"];
 app.use(
   cors({
     origin: (origin, callback) => {
