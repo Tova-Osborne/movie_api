@@ -12,17 +12,17 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(
-  process.env.CONNECTION_URI,
-  {
-    useNewURLParser: true,
-    useUnifiedTopology: true,
-  }
-);
-// mongoose.connect("mongodb://localhost:27017/Movie_appdb", {
-//   useNewURLParser: true,
-//   useUnifiedTopology: true,
-// });
+// mongoose.connect(
+
+//   {
+//     useNewURLParser: true,
+//     useUnifiedTopology: true,
+//   }
+// );
+mongoose.connect("mongodb://localhost:27017/Movie_appdb", {
+  useNewURLParser: true,
+  useUnifiedTopology: true,
+});
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });
