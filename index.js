@@ -12,12 +12,10 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(
-process.env.DBConnect,
-  {
-    useNewURLParser: true,
-    useUnifiedTopology: true,
-  });
+mongoose.connect(process.env.DBConnect, {
+  useNewURLParser: true,
+  useUnifiedTopology: true,
+});
 // mongoose.connect("mongodb://localhost:27017/Movie_appdb", {
 //   useNewURLParser: true,
 //   useUnifiedTopology: true,
@@ -30,7 +28,7 @@ app.use(bodyParser.json());
 app.use(morgan("combined", { stream: accessLogStream }));
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "https://tovamovielistapp.herokuapp.com/"];
+let allowedOrigins = ["*"];
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -236,13 +234,27 @@ app.put(
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
+  [
+    check("Username", "Username is required").isLength({ min: 8 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
   (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
         $set: {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         },
@@ -312,3 +324,7 @@ const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
+
+// app.listen(8080, () => {
+//   console.log("App listening on port 8080.");
+// });
