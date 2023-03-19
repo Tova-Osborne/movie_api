@@ -27,8 +27,11 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
 app.use(bodyParser.json());
 app.use(morgan("combined", { stream: accessLogStream }));
 
-const cors = require("cors");
-Access-Control-Allow-Origin: *
+app.use((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+});
+
+// const cors = require("cors");
 // app.use(
 //   cors({
 //     origin: (origin, callback) => {
