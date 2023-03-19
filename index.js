@@ -55,20 +55,16 @@ app.get("/", (req, res) => {
 });
 
 //Show all movies list
-app.get(
-  "/movies",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.find()
-      .then((movie) => {
-        res.status(200).json(movie);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send("Error: " + error);
-      });
-  }
-);
+app.get("/movies", (req, res) => {
+  Movies.find()
+    .then((movie) => {
+      res.status(200).json(movie);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
 
 //Show movie detail by title
 app.get(
