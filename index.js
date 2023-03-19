@@ -29,6 +29,11 @@ app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  // Getting the set Headers
+  const headers = response.getHeaders();
+
+  // Printing those headers
+  console.log(headers);
 });
 
 // const cors = require("cors");
