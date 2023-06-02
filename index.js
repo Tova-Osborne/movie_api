@@ -35,6 +35,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 // });
 
 const cors = require("cors");
+let allowedOrigins = ["http://localhost:1234"];
 app.use(
   cors({
     origin: (origin, callback) => {
