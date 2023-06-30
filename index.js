@@ -151,7 +151,7 @@ app.get(
 
 //Get a user by username
 app.get(
-  "/users/:_id",
+  "/users/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
@@ -217,7 +217,7 @@ app.post(
 
 //Add movie to user's favorites list by ID
 app.put(
-  "/users/:_id/movies/:_id",
+  "/users/:id/movies/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -240,7 +240,7 @@ app.put(
 //Update User's info by Username
 
 app.put(
-  "/users/:_id",
+  "/users/:id",
   passport.authenticate("jwt", { session: false }),
   [
     check("Username", "Username is required").isLength({ min: 8 }),
@@ -281,7 +281,7 @@ app.put(
 
 // remove movies from user's favorites list by username
 app.delete(
-  "/users/:_id/movies/:id",
+  "/users/:id/movies/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -303,7 +303,7 @@ app.delete(
 
 // Delete a user by username
 app.delete(
-  "/users/:_id",
+  "/users/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
