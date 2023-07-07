@@ -256,13 +256,6 @@ app.put(
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
-  [
-    check(
-      "Username",
-      "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("Email", "Email does not appear to be valid").isEmail(),
-  ],
   (req, res) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
