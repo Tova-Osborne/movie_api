@@ -193,7 +193,7 @@ app.post(
     ).isAlphanumeric(),
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
-    check("Birthdate", "Date is not valid").isDate(),
+    // check("Birthdate", "Date is not valid").isDate(),
   ],
   (req, res) => {
     let errors = validationResult(req);
