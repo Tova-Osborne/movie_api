@@ -257,12 +257,10 @@ app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   [
-    check("Username", "Username is required").isLength({ min: 8 }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
@@ -278,7 +276,7 @@ app.put(
           Username: req.body.Username,
           Password: hashedPassword,
           Email: req.body.Email,
-          Birthday: req.body.Birthday,
+          Birthdate: req.body.Birthdate,
         },
       },
       { new: true }
