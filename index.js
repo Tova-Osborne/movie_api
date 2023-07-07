@@ -149,14 +149,13 @@ app.get(
   }
 );
 
-//Get a user by username
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOne({ Username: req.params.Username })
-      .then((user) => {
-        res.status(201).res.json(user);
+      .then((users) => {
+        res.status(200).json(users);
       })
       .catch((err) => {
         console.error(err);
@@ -164,6 +163,22 @@ app.get(
       });
   }
 );
+
+// //Get a user by username
+// app.get(
+//   "/users/:Username",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Users.findOne({ Username: req.params.Username })
+//       .then((user) => {
+//         res.status(201).res.json(user);
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//         res.status(500).send("Error: " + err);
+//       });
+//   }
+// );
 
 //POST requests
 
