@@ -209,6 +209,7 @@ app.post(
             Username: req.body.Username,
             Password: hashedPassword,
             Email: req.body.Email,
+            Birthdate: req.body.Birthdate,
           })
             .then((user) => {
               console.log(user);
