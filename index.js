@@ -256,7 +256,7 @@ app.put(
 //Update User's info by Username
 
 app.put(
-  "/users/:Username",
+  "/users/:_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let errors = validationResult(req);
@@ -265,7 +265,7 @@ app.put(
     }
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
-      { Username: req.params.Username },
+      { _id: req.params._id },
       {
         $set: {
           Username: req.body.Username,
