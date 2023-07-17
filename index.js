@@ -288,11 +288,11 @@ app.put(
 
 // remove movies from user's favorites list by username
 app.delete(
-  "/users/:Username/movies/:MovieID",
+  "/users/:_id/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
-      { Username: req.params.Username },
+      { _id: req.params._id },
       {
         $pull: { Favorites: req.params.MovieID },
       },
