@@ -35,7 +35,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 // });
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:1234"];
+let allowedOrigins = ["http://localhost:1234", "https://movies-cf.netlify.app"];
 app.use(
   cors({
     origin: (origin, callback) => {
